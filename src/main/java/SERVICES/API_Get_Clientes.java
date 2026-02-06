@@ -1,8 +1,9 @@
 package SERVICES;
 
-import DTOs.DTOApiPROD;
-import DTOs.DTOProdutos;
+import DTOs.DTOApiCli;
+import DTOs.DTOCLientes;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -11,16 +12,16 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Properties;
 
-import static Repositories.ProdutosRepository.AdicionaProdutos;
+import static Repositories.ClientesRepository.AdicionaCliente;
 
-public class API_Get_Products {
+public class API_Get_Clientes {
 
-    DTOApiPROD dados = new DTOApiPROD();
+    DTOApiCli dados = new DTOApiCli();
     Properties props = new Properties();
 
 
 
-    public void getAPIPROD() throws IOException, InterruptedException {
+    public void getAPICLI() throws IOException, InterruptedException {
 
         props.load(new FileInputStream("config.properties"));
         String token = props.getProperty("ACCESS_TOKEN");
@@ -29,7 +30,7 @@ public class API_Get_Products {
         try{
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.beteltecnologia.com/produtos"))
+                    .uri(URI.create("https://api.beteltecnologia.com/clientes"))
                     .header("Content-Type","application/json")
                     .header("access-token",token)
                     .header("secret-access-token",secret)
@@ -39,15 +40,15 @@ public class API_Get_Products {
             HttpResponse<String> response = client.send(request,HttpResponse.BodyHandlers.ofString());
 
             ObjectMapper mapper = new ObjectMapper();
-            dados = mapper.readValue(response.body(), DTOApiPROD.class);
+            dados = mapper.readValue(response.body(), DTOApiCli.class);
 
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
 
-        for (DTOProdutos produto : dados.getData()) {
-            //System.out.println(produto);
-            AdicionaProdutos(produto);
+        for (DTOCLientes cliente : dados.getData()) {
+
+            AdicionaCliente(cliente);
         };
 
     }
