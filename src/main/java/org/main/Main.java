@@ -18,6 +18,7 @@ public class Main {
 
        while(y != 0){
            System.out.println("O que deseja fazer?");
+           System.out.println("0 - FECHAR");
            System.out.println("1 - IMPORTAR PRODUTOS");
            System.out.println("2 - IMPORTAR CLIENTES");
            System.out.println("3 - EXPORTAR VENDAS");
