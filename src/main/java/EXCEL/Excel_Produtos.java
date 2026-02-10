@@ -19,9 +19,9 @@ public class Excel_Produtos {
         apiProdutos.getAPIPROD();
         Map<Integer, DTOProdutos> MAPA =  getHashProd();
         try {
-            FileInputStream fis = new FileInputStream("Produtos.xlsx");
+            FileInputStream fis = new FileInputStream("Vendas.xlsm");
             Workbook planilha = WorkbookFactory.create(fis);
-            Sheet produtos = planilha.getSheetAt(0);
+            Sheet produtos = planilha.getSheetAt(2);
             int linhaIndex = 1;
             for (int i = produtos.getLastRowNum(); i >= 1; i--) {
                 Row row = produtos.getRow(i);
@@ -29,7 +29,6 @@ public class Excel_Produtos {
                     produtos.removeRow(row);
                 }
             }
-
             for (DTOProdutos produto : MAPA.values()) {
                 Row linha = produtos.createRow(linhaIndex++);
                 linha.createCell(0).setCellValue(produto.getId());
@@ -41,7 +40,7 @@ public class Excel_Produtos {
 
             fis.close();
 
-            FileOutputStream fos = new FileOutputStream("Produtos.xlsx");
+            FileOutputStream fos = new FileOutputStream("Vendas.xlsm");
             planilha.write(fos);
 
             fos.close();

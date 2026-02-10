@@ -29,7 +29,7 @@ public class Excel_Vendas {
         MontaPedido ped = new MontaPedido();
 
         try {
-            FileInputStream fis = new FileInputStream("Vendas.xlsx");
+            FileInputStream fis = new FileInputStream("Vendas.xlsm");
             Workbook planilha = WorkbookFactory.create(fis);
             Sheet produtos = planilha.getSheetAt(0);
             Pedido pedido = null;
@@ -89,7 +89,7 @@ public class Excel_Vendas {
             }
             fis.close();
 
-            FileOutputStream fos = new FileOutputStream("Vendas.xlsx");
+            FileOutputStream fos = new FileOutputStream("Vendas.xlsm");
             planilha.write(fos);
 
             fos.close();
